@@ -19,6 +19,7 @@ import {
 } from '../common/const.js';
 import {sleep, uuid} from '../common/util.js';
 
+import {pageDrawer} from './drawers/pageDrawer.js';
 import {animationDrawer} from './drawers/animationDrawer.js';
 import {interactDrawer} from './drawers/interactDrawer.js';
 import {bindMouseActions} from '../actions/mouseActions.js';

@@ -75,7 +75,7 @@ export const jadeFlowGraph = (div, title) => {
   };
   self.setting.borderColor = '#047bfc';
   self.setting.focusBorderColor = '#047bfc';
-  self.setting.mouseInBorderColor = '#047bfc';
+  self.setting.mouseInBorderColor = ;
   self.setting.allNodeNumLimit = 99;
   self.setting.sameTypeNodeNumLimit = 19;
   self.compatibilityManager = compatibilityManager();
