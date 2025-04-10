@@ -4,9 +4,9 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import React, {createContext, forwardRef, useContext, useEffect, useImperativeHandle, useReducer, useRef} from 'react';
+import React, {createContext, forwardRef, useContext, useEffect, useImperativeHandle, useReducer, useRef, useState} from 'react';
 import './contentStyle.css';
-import {ConfigProvider, Form} from 'antd';
+import {Drawer, Form} from 'antd';
 import {useUpdateEffect} from '@/components/common/UseUpdateEffect.jsx';
 import {EVENT_TYPE} from '@fit-elsa/elsa-core';
 import PropTypes from 'prop-types';
@@ -31,6 +31,7 @@ export const DefaultRoot = forwardRef(function ({shape, component, shapeStatus, 
     const id = "react-root-" + shape.id;
     const [form] = Form.useForm();
     const domRef = useRef();
+    const [open, setOpen] = useState(false);
 
     // 对外暴露方法.
     useImperativeHandle(ref, () => {
@@ -69,8 +70,10 @@ export const DefaultRoot = forwardRef(function ({shape, component, shapeStatus, 
         }
         const focusedShapes = shape.page.getFocusedShapes();
         if (focusedShapes.includes(shape)) {
+            setOpen(true);
             domRef.current.style.pointerEvents = focusedShapes.length > 1 ? "none" : "auto";
         } else {
+            setOpen(false);
             domRef.current.style.pointerEvents = "auto";
         }
     };
@@ -116,6 +119,33 @@ export const DefaultRoot = forwardRef(function ({shape, component, shapeStatus, 
                 </DispatchContext.Provider>
             </Form>
         </div>
+        <Drawer
+          title={null}
+          width="400px"
+          placement="right"
+          closable={false}
+          mask={false}
+          open={open}
+        >
+            <Form form={form}
+                  name={`outside-form-${shape.id}`}
+                  layout="vertical" // 设置全局的垂直布局
+                  className={'jade-form'}
+            >
+                <DispatchContext.Provider value={dispatch}>
+                    {shape.drawer.getHeaderComponent(data, shapeStatus)}
+                    <FormContext.Provider value={form}>
+                        <ShapeContext.Provider value={shape}>
+                            <DataContext.Provider value={data}>
+                                <div className="react-node-content">
+                                    {component.getReactComponents(shapeStatus, data)}
+                                </div>
+                            </DataContext.Provider>
+                        </ShapeContext.Provider>
+                    </FormContext.Provider>
+                </DispatchContext.Provider>
+            </Form>
+        </Drawer>
     </>);
 });
 
