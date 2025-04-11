@@ -4,23 +4,14 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import React, {
-  createContext,
-  forwardRef,
-  useContext,
-  useEffect,
-  useImperativeHandle,
-  useReducer,
-  useRef,
-  useState,
-} from "react";
-import { createPortal } from "react-dom";
-import "./contentStyle.css";
-import { Form } from "antd";
-import { useUpdateEffect } from "@/components/common/UseUpdateEffect.jsx";
-import { EVENT_TYPE } from "@fit-elsa/elsa-core";
-import PropTypes from "prop-types";
-import { SYSTEM_ACTION } from "@/common/Consts.js";
+import React, {createContext, forwardRef, useContext, useEffect, useImperativeHandle, useReducer, useRef, useState} from 'react';
+import {createPortal} from 'react-dom';
+import './contentStyle.css';
+import {Form} from 'antd';
+import {useUpdateEffect} from '@/components/common/UseUpdateEffect.jsx';
+import {EVENT_TYPE} from '@fit-elsa/elsa-core';
+import PropTypes from 'prop-types';
+import {SYSTEM_ACTION} from '@/common/Consts.js';
 
 const DataContext = createContext(null);
 const ShapeContext = createContext(null);
@@ -37,14 +28,14 @@ const FormContext = createContext(null);
  * @constructor
  */
 export const DefaultRoot = forwardRef(function (
-  { shape, component, shapeStatus, borderPadding },
-  ref
+  {shape, component, shapeStatus, borderPadding},
+  ref,
 ) {
   const [data, dispatch] = useReducer(
     component.reducers,
-    component.getJadeConfig()
+    component.getJadeConfig(),
   );
-  const id = "react-root-" + shape.id;
+  const id = 'react-root-' + shape.id;
   const [form] = Form.useForm();
   const domRef = useRef();
   const [open, setOpen] = useState(false);
@@ -75,16 +66,16 @@ export const DefaultRoot = forwardRef(function (
     shape.observe();
     shape.page.addEventListener(
       EVENT_TYPE.FOCUSED_SHAPES_CHANGE,
-      onFocusedShapeChange
+      onFocusedShapeChange,
     );
     shape.page.triggerEvent({
-      type: "shape_rendered",
-      value: { id: shape.id },
+      type: 'shape_rendered',
+      value: {id: shape.id},
     });
     return () => {
       shape.page.removeEventListener(
         EVENT_TYPE.FOCUSED_SHAPES_CHANGE,
-        onFocusedShapeChange
+        onFocusedShapeChange,
       );
     };
   }, []);
@@ -95,12 +86,14 @@ export const DefaultRoot = forwardRef(function (
     }
     const focusedShapes = shape.page.getFocusedShapes();
     if (focusedShapes.includes(shape)) {
+      domRef.current.style.pointerEvents = focusedShapes.length > 1 ? 'none' : 'auto';
+    } else {
+      domRef.current.style.pointerEvents = 'auto';
+    }
+    if (shape.page.onConfigShape === shape.id) {
       setOpen(true);
-      domRef.current.style.pointerEvents =
-        focusedShapes.length > 1 ? "none" : "auto";
     } else {
       setOpen(false);
-      domRef.current.style.pointerEvents = "auto";
     }
   };
 
@@ -131,12 +124,12 @@ export const DefaultRoot = forwardRef(function (
           }}
         />
       )}
-      <div id={id} style={{ display: "block" }} ref={domRef}>
+      <div id={id} style={{display: 'block'}} ref={domRef}>
         <Form
           form={form}
           name={`form-${shape.id}`}
           layout="vertical" // 设置全局的垂直布局
-          className={"jade-form"}
+          className={'jade-form'}
         >
           <DispatchContext.Provider value={dispatch}>
             {shape.drawer.getHeaderComponent(data, shapeStatus)}
@@ -145,7 +138,7 @@ export const DefaultRoot = forwardRef(function (
                 <DataContext.Provider value={data}>
                   <div
                     className="react-node-content"
-                    style={{ borderRadius: `${shape.borderRadius}px` }}
+                    style={{borderRadius: `${shape.borderRadius}px`}}
                   >
                     {component.getReactComponents(shapeStatus, data)}
                   </div>
@@ -163,7 +156,7 @@ export const DefaultRoot = forwardRef(function (
               form={form}
               name={`outside-form-${shape.id}`}
               layout="vertical" // 设置全局的垂直布局
-              className={"jade-form"}
+              className={'jade-form'}
             >
               <DispatchContext.Provider value={dispatch}>
                 {shape.drawer.getHeaderComponent(data, shapeStatus)}
@@ -179,7 +172,7 @@ export const DefaultRoot = forwardRef(function (
               </DispatchContext.Provider>
             </Form>
           </div>,
-          document.getElementById('elsa-graph')
+          document.getElementById('elsa-graph'),
         )}
     </>
   );

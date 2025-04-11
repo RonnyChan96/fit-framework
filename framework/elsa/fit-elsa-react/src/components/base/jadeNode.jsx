@@ -486,5 +486,17 @@ export const jadeNode = (id, x, y, width, height, parent, drawer) => {
     self.invalidateAlone();
   };
 
+  /**
+   * @override
+   */
+  const select = self.select;
+  self.select = (xVal, yVal) => {
+    select.apply(self, [xVal, yVal]);
+    const focusedShapes = self.page.getFocusedShapes();
+    if (focusedShapes.length === 1 && focusedShapes.includes(self)) {
+      self.page.onConfigShape = self.id;
+    }
+  };
+
   return self;
 };
