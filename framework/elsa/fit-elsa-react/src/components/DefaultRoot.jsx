@@ -140,7 +140,7 @@ export const DefaultRoot = forwardRef(function (
                     className="react-node-content"
                     style={{borderRadius: `${shape.borderRadius}px`}}
                   >
-                    {component.getReactComponents(shapeStatus, data)}
+                    {component.getReactComponents(shapeStatus, data, false)}
                   </div>
                 </DataContext.Provider>
               </ShapeContext.Provider>
@@ -164,7 +164,7 @@ export const DefaultRoot = forwardRef(function (
                   <ShapeContext.Provider value={shape}>
                     <DataContext.Provider value={data}>
                       <div className="react-node-content">
-                        {component.getReactComponents(shapeStatus, data)}
+                        {component.getReactComponents(shapeStatus, data, true)}
                       </div>
                     </DataContext.Provider>
                   </ShapeContext.Provider>
