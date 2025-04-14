@@ -91,11 +91,7 @@ export const DefaultRoot = forwardRef(function (
     } else {
       domRef.current.style.pointerEvents = 'auto';
     }
-    if (shape.page.onConfigShape === shape.id) {
-      setOpen(true);
-    } else {
-      setOpen(false);
-    }
+    setOpen(shape.page.onConfigShape === shape.id);
   };
 
   // 第一次进来不会触发，第一次发生变化时才触发.
@@ -150,9 +146,8 @@ export const DefaultRoot = forwardRef(function (
           </DispatchContext.Provider>
         </Form>
       </div>
-      {open &&
-        createPortal(
-          <div className="jade-form-drawer">
+      {createPortal(
+          <div className={`jade-form-drawer ${open ? '' : 'hidden'}`}>
             <Form
               form={form}
               name={`outside-form-${shape.id}`}
@@ -172,8 +167,11 @@ export const DefaultRoot = forwardRef(function (
                 </FormContext.Provider>
               </DispatchContext.Provider>
             </Form>
-            <div className='jade-form-drawer-close' onClick={() => setOpen(false)}>
-              <CloseOutlined style={{ fontSize: '12px' }} />
+            <div className="jade-form-drawer-close" onClick={() => {
+              shape.page.onConfigShape = undefined;
+              setOpen(false);
+            }}>
+              <CloseOutlined style={{fontSize: '12px'}}/>
             </div>
           </div>,
           document.getElementById('elsa-graph'),

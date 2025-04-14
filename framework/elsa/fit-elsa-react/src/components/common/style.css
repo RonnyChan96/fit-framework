@@ -711,3 +711,6 @@
 .jade-form-drawer .jade-menus {
     margin-right: 50px;
 }
+.jade-form-drawer.hidden {
+    display: none;
+}
