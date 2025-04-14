@@ -147,15 +147,24 @@ export const DefaultRoot = forwardRef(function (
         </Form>
       </div>
       {createPortal(
-          <div className={`jade-form-drawer ${open ? '' : 'hidden'}`}>
-            <Form
-              form={form}
-              name={`outside-form-${shape.id}`}
-              layout="vertical" // 设置全局的垂直布局
-              className={'jade-form'}
-            >
-              <DispatchContext.Provider value={dispatch}>
+        <div className={`jade-form-drawer ${open ? '' : 'hidden'}`}>
+          <Form
+            form={form}
+            name={`outside-form-${shape.id}`}
+            layout="vertical" // 设置全局的垂直布局
+            className={'jade-form'}
+          >
+            <DispatchContext.Provider value={dispatch}>
+              <div className="sticky-header">
                 {shape.drawer.getHeaderComponent(data, shapeStatus)}
+                <div className="jade-form-drawer-close" onClick={() => {
+                  shape.page.onConfigShape = undefined;
+                  setOpen(false);
+                }}>
+                  <CloseOutlined style={{fontSize: '12px'}}/>
+                </div>
+              </div>
+              <div className="jade-form-drawer-content">
                 <FormContext.Provider value={form}>
                   <ShapeContext.Provider value={shape}>
                     <DataContext.Provider value={data}>
@@ -165,17 +174,12 @@ export const DefaultRoot = forwardRef(function (
                     </DataContext.Provider>
                   </ShapeContext.Provider>
                 </FormContext.Provider>
-              </DispatchContext.Provider>
-            </Form>
-            <div className="jade-form-drawer-close" onClick={() => {
-              shape.page.onConfigShape = undefined;
-              setOpen(false);
-            }}>
-              <CloseOutlined style={{fontSize: '12px'}}/>
-            </div>
-          </div>,
-          document.getElementById('elsa-graph'),
-        )}
+              </div>
+            </DispatchContext.Provider>
+          </Form>
+        </div>,
+        document.getElementById('elsa-graph'),
+      )}
     </>
   );
 });
