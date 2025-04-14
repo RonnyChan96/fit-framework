@@ -702,6 +702,12 @@
     border-radius: 12px;
     overflow: auto;
 }
+.jade-form-drawer .jade-form-drawer-close {
+    position: absolute;
+    top: 14px;
+    right: 26px;
+    cursor: pointer;
+}
 .jade-form-drawer .jade-menus {
     margin-right: 50px;
 }

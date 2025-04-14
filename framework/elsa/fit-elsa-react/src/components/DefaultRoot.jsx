@@ -8,6 +8,7 @@ import React, {createContext, forwardRef, useContext, useEffect, useImperativeHa
 import {createPortal} from 'react-dom';
 import './contentStyle.css';
 import {Form} from 'antd';
+import {CloseOutlined} from '@ant-design/icons';
 import {useUpdateEffect} from '@/components/common/UseUpdateEffect.jsx';
 import {EVENT_TYPE} from '@fit-elsa/elsa-core';
 import PropTypes from 'prop-types';
@@ -171,6 +172,9 @@ export const DefaultRoot = forwardRef(function (
                 </FormContext.Provider>
               </DispatchContext.Provider>
             </Form>
+            <div className='jade-form-drawer-close' onClick={() => setOpen(false)}>
+              <CloseOutlined style={{ fontSize: '12px' }} />
+            </div>
           </div>,
           document.getElementById('elsa-graph'),
         )}
