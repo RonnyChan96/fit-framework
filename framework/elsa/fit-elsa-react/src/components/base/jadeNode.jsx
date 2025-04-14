@@ -76,6 +76,7 @@ export const jadeNode = (id, x, y, width, height, parent, drawer) => {
   self.referenceDisabled = false;
   self.statusManager = statusManager(self);
   self.isActiveInFlow = false;
+  self.allowConfig = true;
 
   overrideMethods(self);
   referenceDecorate(self);
@@ -494,7 +495,7 @@ export const jadeNode = (id, x, y, width, height, parent, drawer) => {
     select.apply(self, [xVal, yVal]);
     const focusedShapes = self.page.getFocusedShapes();
     if (focusedShapes.length === 1 && focusedShapes.includes(self)) {
-      self.page.onConfigShape = self.id;
+      self.page.onConfigShape = self.allowConfig ? self.id : undefined;
     }
   };
 
