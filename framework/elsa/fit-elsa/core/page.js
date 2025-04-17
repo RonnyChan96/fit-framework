@@ -789,6 +789,7 @@ const page = (div, graph, name, id, iDrawer = interactDrawer, pDrawer = pageDraw
    * @param lines 需要调整的线列表。
    */
   self.reorganizeNodes = (scale, nodes = self.sm.getShapes(s => s.isTypeof('jadeNode')), lines = self.sm.getShapes(s => s.isTypeof('jadeEvent'))) => {
+    const DEFAULT_REORGANIZE_PADDING = 40;
     const layout = getLayoutByDagre(nodes, lines);
     nodes.forEach(node => {
       const nodeWithLayoutPos = layout.node(node.id);
@@ -798,7 +799,7 @@ const page = (div, graph, name, id, iDrawer = interactDrawer, pDrawer = pageDraw
       line.onEffect();
     });
     self.toScreenCenter(scale, scale);
-    self.moveTo(40, 40);
+    self.moveTo(DEFAULT_REORGANIZE_PADDING, DEFAULT_REORGANIZE_PADDING);
   };
 
   self.resize = () => {
