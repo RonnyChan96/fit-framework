@@ -394,8 +394,10 @@ export const knowledgeRetrievalCompatibilityProcessor = (shapeData, graph, pageH
     process.apply(self);
 
     const optionParamProcess = () => {
-      const optionValue = self.shapeData.flowMeta.jober.converter.entity.inputParams.find(inputParam => inputParam.name === 'option').value;
-      if (!optionValue.find(v => v.name === 'groupId')) {
+      const optionValue = self.shapeData.flowMeta.jober.converter.entity.inputParams
+        .find(inputParam => inputParam.name === 'option')?.value;
+
+      if (Array.isArray(optionValue) && !optionValue.some(v => v.name === 'groupId')) {
         optionValue.push(DEFAULT_KNOWLEDGE_REPO_GROUP_STRUCT);
       }
     };
