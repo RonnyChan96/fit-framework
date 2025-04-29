@@ -86,11 +86,16 @@ export const CodeEditor = (
       fontSize: 14,
       fontFamily: 'inherit',
     });
-    monacoRef.current.onDidChangeModelContent(() => {
-      onChange && onChange(monacoRef.current.getModel().getValue());
-    });
+    // 延迟100ms添加监听器，避免首次加载时触发数据保存逻辑
+    const timer = setTimeout(() => {
+      const disposable = monacoRef.current.onDidChangeModelContent(() => {
+        onChange?.(monacoRef.current.getModel().getValue());
+      });
+      return () => disposable.dispose(); // 清理监听
+    }, 100);
     registerSuggestions();
     return () => {
+      clearTimeout(timer);
       monacoRef.current.dispose();
     };
   }, []);
