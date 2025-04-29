@@ -14,7 +14,7 @@ import {FormItemSelectValue} from '@/components/intelligentForm/FormItemSelectVa
 import {RENDER_OPTIONS_TYPE} from '@/components/intelligentForm/Consts.js';
 import {FormItemDisplayName} from '@/components/intelligentForm/FormItemDisplayName.jsx';
 import {Col, Row} from 'antd';
-import {DATA_TYPES, FROM_TYPE} from '@/common/Consts.js';
+import {DATA_TYPES, FROM_TYPE, RENDER_TYPE} from '@/common/Consts.js';
 import FormItemFieldType from '@/components/intelligentForm/FormItemFieldType.jsx';
 
 /**
@@ -42,6 +42,9 @@ const _IntelligentInputFormItem = ({item, items, shapeStatus, output}) => {
     // 如果 type 是 'type'，清空 renderType
     if (changes.has('renderType') && changes.get('renderType') !== item.renderType) {
       changes.set('type', undefined);
+      if (changes.get('renderType') === RENDER_TYPE.CHECK_BOX) {
+        changes.set('type', DATA_TYPES.ARRAY);
+      }
       changes.set('value', null);
       form.setFieldsValue({[`value-${item.id}`]: undefined});
     }
@@ -74,10 +77,13 @@ const _IntelligentInputFormItem = ({item, items, shapeStatus, output}) => {
         <FormItemRenderType itemId={item.id} propValue={item.renderType} disabled={shapeStatus.disabled} onChange={handleFormValueChange}/>
       </Col>
       <Col flex='1'>
-        <FormItemFieldType itemId={item.id} propValue={item.type} disableModifiable={shapeStatus.disabled} onChange={handleFormValueChange} renderType={item.renderType}/>
+        {item.renderType !== RENDER_TYPE.CHECK_BOX &&
+          <FormItemFieldType itemId={item.id} propValue={item.type} disableModifiable={shapeStatus.disabled} onChange={handleFormValueChange}
+                             renderType={item.renderType}/>}
       </Col>
     </Row>
-    <FormItemSelectValue item={item} onChange={handleFormValueChange} shapeStatus={shapeStatus} label={t('formItemDefaultValue')}/>
+    {item.renderType !== RENDER_TYPE.CHECK_BOX &&
+      <FormItemSelectValue item={item} onChange={handleFormValueChange} shapeStatus={shapeStatus} label={t('formItemDefaultValue')}/>}
     {RENDER_OPTIONS_TYPE.has(item.renderType) && <FormItemSelectValue item={item.options} onChange={handleOptionsChange} shapeStatus={shapeStatus} label={t('formItemOptionsValue')} inputRequired={true}/>}
   </>);
 };
