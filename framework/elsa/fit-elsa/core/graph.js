@@ -431,7 +431,7 @@ const graph = (div, title) => {
 
         // 先更新所有字段信息
         for (let f in shapeData.properties) {
-          if (!Object.prototype.hasOwnProperty.call(shapeData, f)) {
+          if (!Object.prototype.hasOwnProperty.call(target, f)) {
             continue;
           }
           target[f] = shapeData.properties[f];

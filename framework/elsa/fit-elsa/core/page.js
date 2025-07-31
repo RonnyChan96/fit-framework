@@ -33,7 +33,7 @@ import {addCommand, deleteCommand, positionCommand} from './commands.js';
 import {guideLineUtil} from '../common/guideLineUtil.js';
 import {copyPasteHelper} from '../actions/copyPasteHelper.js';
 import {shapeManager} from './shapeManager.js';
-import {getLayoutByDagre} from '../common/layoutUtil';
+import {getLayoutByDagre} from '../common/layoutUtil.js';
 
 /**
  * 最顶层容器，代表了一页画
