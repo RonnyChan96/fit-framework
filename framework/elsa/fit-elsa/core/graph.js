@@ -192,7 +192,7 @@ const graph = (div, title) => {
   self.subscriptions['freeline_done'] = message => {
     const mPage = self.pages.find(p => p.id === message.page);
     let free = mPage.sm.getShapeById(message.value.to);
-    free.lines.push(message.value.line);
+    free.lines.push(...message.value.lines);
   };
 
   /**
@@ -1010,6 +1010,17 @@ const graph = (div, title) => {
       .staticImport(() => import(/* webpackMode: "eager" */ `${core}/rightCurlyBrace.js`))
       .staticImport(() => import(/* webpackMode: "eager" */ `${core}/roundedRectangleCallout.js`))
       .staticImport(() => import(/* webpackMode: "eager" */ `${core}/freeLine.js`))
+      .staticImport(() => import(/* webpackMode: "eager" */ `../plugins/mind/hitRegion.js`))
+      .staticImport(() => import(/* webpackMode: "eager" */ `../plugins/mind/mind.js`))
+      .staticImport(() => import(/* webpackMode: "eager" */ `../plugins/mind/topic.js`))
+      .staticImport(() => import(/* webpackMode: "eager" */ `../plugins/mind/subTopic.js`))
+      .staticImport(() => import(/* webpackMode: "eager" */ `../plugins/flowable/nodes/node.js`))
+      // .staticImport(() => import(/* webpackMode: "eager" */ `../plugins/flowable/nodes/startEnd.js`))
+      .staticImport(() => import(/* webpackMode: "eager" */ `../plugins/flowable/nodes/state.js`))
+      // .staticImport(() => import(/* webpackMode: "eager" */ `../plugins/flowable/nodes/condition.js`))
+      // .staticImport(() => import(/* webpackMode: "eager" */ `../plugins/flowable/nodes/subflow.js`))
+      // .staticImport(() => import(/* webpackMode: "eager" */ `../plugins/flowable/nodes/parallel.js`))
+      // .staticImport(() => import(/* webpackMode: "eager" */ `../plugins/flowable/nodes/event.js`))
       ;
   };
 

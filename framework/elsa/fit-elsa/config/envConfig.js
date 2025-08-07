@@ -10,7 +10,7 @@
  * @type {{collaborationUrl: string}}
  */
 const LOCAL_CONFIG = {
-    collaborationUrl: "http://localhost:8080/collaboration",
+    collaborationUrl: "http://localhost:8085/collaboration",
     levitationDefault: "",
     levitationActive: ""
 }

@@ -1,5 +1,5 @@
 {
-  "collaborationUrl": "",
+  "collaborationUrl": "http://localhost:8085/collaboration",
   "getGraphUrl": "",
   "saveGraphUrl": "",
   "getUserUrl": "",

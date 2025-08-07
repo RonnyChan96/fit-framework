@@ -136,7 +136,7 @@ const interactDrawer = (graph, page, div) => {
           page.fitScreen(PAGE_FIT_SCREEN_SCALE_MIN, PAGE_FIT_SCREEN_SCALE_MAX);
           e.stopPropagation();
         },
-        tooltip: graph.i18n.t('displayAllNodes'),
+        // tooltip: graph.i18n.t('displayAllNodes'),
       });
     };
 
@@ -154,7 +154,7 @@ const interactDrawer = (graph, page, div) => {
           tool.update(); // 触发更新
           e.stopPropagation();
         },
-        tooltip: graph.i18n.t('handMode'),
+        // tooltip: graph.i18n.t('handMode'),
       });
 
       /**
@@ -182,7 +182,7 @@ const interactDrawer = (graph, page, div) => {
           page.reorganizeNodes(PAGE_REORGANIZE_SCREEN_SCALE);
           e.stopPropagation() // 阻止事件冒泡
         },
-        tooltip: graph.i18n.t('reorganizeNodes'),
+        // tooltip: graph.i18n.t('reorganizeNodes'),
       });
     };
 
@@ -206,7 +206,7 @@ const interactDrawer = (graph, page, div) => {
         button.onclick = () => {
           me.zoomTo(page.scaleX - 0.1);
         };
-        button.title = graph.i18n.t('zoomOut');
+        // button.title = graph.i18n.t('zoomOut');
         return button;
       };
 
@@ -252,7 +252,7 @@ const interactDrawer = (graph, page, div) => {
         button.onclick = () => {
           me.zoomTo(page.scaleX + 0.1);
         };
-        button.title = graph.i18n.t('zoomIn');
+        // button.title = graph.i18n.t('zoomIn');
         return button;
       };
 

@@ -33,7 +33,7 @@ import {addCommand, deleteCommand, positionCommand} from './commands.js';
 import {guideLineUtil} from '../common/guideLineUtil.js';
 import {copyPasteHelper} from '../actions/copyPasteHelper.js';
 import {shapeManager} from './shapeManager.js';
-import {getLayoutByDagre} from '../common/layoutUtil.js';
+// import {getLayoutByDagre} from '../common/layoutUtil.js';
 
 /**
  * 最顶层容器，代表了一页画
@@ -789,24 +789,24 @@ const page = (div, graph, name, id, iDrawer = interactDrawer, pDrawer = pageDraw
    * @param lines 需要调整的线列表。
    */
   self.reorganizeNodes = (scale, nodes = self.sm.getShapes(s => s.isTypeof('jadeNode')), lines = self.sm.getShapes(s => s.isTypeof('jadeEvent'))) => {
-    const DEFAULT_REORGANIZE_PADDING = 40;
-    const layout = getLayoutByDagre(nodes, lines);
-    nodes.forEach(node => {
-      const nodeWithLayoutPos = layout.node(node.id);
-      node.moveTo(nodeWithLayoutPos.x - (node.width / 2), nodeWithLayoutPos.y - (node.height / 2));
-    });
-    lines.forEach(line => {
-      line.onEffect();
-    });
-    self.toScreenCenter(scale, scale);
-    self.moveTo(DEFAULT_REORGANIZE_PADDING, DEFAULT_REORGANIZE_PADDING);
+    // const DEFAULT_REORGANIZE_PADDING = 40;
+    // const layout = getLayoutByDagre(nodes, lines);
+    // nodes.forEach(node => {
+    //   const nodeWithLayoutPos = layout.node(node.id);
+    //   node.moveTo(nodeWithLayoutPos.x - (node.width / 2), nodeWithLayoutPos.y - (node.height / 2));
+    // });
+    // lines.forEach(line => {
+    //   line.onEffect();
+    // });
+    // self.toScreenCenter(scale, scale);
+    // self.moveTo(DEFAULT_REORGANIZE_PADDING, DEFAULT_REORGANIZE_PADDING);
   };
 
   self.resize = () => {
     if (!self.dynamicResize) {
       return;
     }
-    let shapes = self.getShapes();
+    let shapes = self.sm.getShapes();
     if (shapes.length === 0) {
       return;
     }
