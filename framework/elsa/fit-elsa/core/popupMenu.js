@@ -98,12 +98,12 @@ const popupMenu = (() => {
       shape.page.contextToolbar && shape.page.contextToolbar.destroy();
       !menuScriptVal && (menuScriptVal = shape.getMenuScript(x, y));
       if (menuScriptVal && menuScriptVal.length > 0) {
-        const pop = menu(shape, menuScriptVal, x, y);
-            if (pop.firstChild) {
-                pop.firstChild.onMouseIn();
-                pop.invalidate();
-                return pop;
-            }
+          const pop = menu(shape, menuScriptVal, x, y);
+          if (pop.firstChild) {
+            pop.firstChild.onMouseIn();
+            pop.invalidate();
+            return pop;
+          }
         }
       return undefined;
     };

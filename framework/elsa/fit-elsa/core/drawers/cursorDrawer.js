@@ -163,7 +163,7 @@ const cursorDrawer = (() => {
         context.rect(x - r, y - r, 2 * r, 2 * r);
         context.fill();
         context.stroke();
-        return CURSORS.NONE;
+        return CURSORS.ERASER;
     };
 
     images['ew-resize'] = () => 'w-resize';

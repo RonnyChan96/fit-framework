@@ -665,7 +665,10 @@ const interactDrawer = (graph, page, div) => {
     const id = cursorId(page);
 
     // 如果不是父子关系，那么可能是display. 此时需要创建新的dom.
-    return graph.createDom(div, 'canvas', id, page.id);
+    const canvas = graph.createDom(div, 'canvas', id, page.id);
+    div.appendChild(canvas);
+    canvas.style.pointerEvents = 'none';
+    return canvas;
   })();
 
   self.pageIdChange = () => {
