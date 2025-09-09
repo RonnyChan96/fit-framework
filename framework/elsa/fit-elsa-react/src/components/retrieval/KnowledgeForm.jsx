@@ -56,7 +56,7 @@ const _KnowledgeForm = ({knowledge, groupId, knowledgeConfigId, disabled, maximu
   };
 
   const onSelect = (data) => {
-    dispatch({type: 'updateKnowledge', value: data});
+    dispatch({type: 'updateKnowledgeFlat', knowledgeRepos: data});
   };
 
   const getSelectedKnowledgeBases = () => {
@@ -95,8 +95,8 @@ const _KnowledgeForm = ({knowledge, groupId, knowledgeConfigId, disabled, maximu
         selectedKnowledgeConfigId: knowledgeConfigId,
         onSelect: (repoGroupId, knowledgeConfigId) => {
           dispatch({
-            type: 'updateGroupIdAndConfigId',
-            value: repoGroupId,
+            type: 'updateKnowledgeFlat',
+            groupId: repoGroupId,
             knowledgeConfigId: knowledgeConfigId,
           });
         },
