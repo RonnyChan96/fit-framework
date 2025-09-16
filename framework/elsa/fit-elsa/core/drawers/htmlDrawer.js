@@ -36,6 +36,24 @@ const drawer = (shape, div, x = 0, y = 0) => {
   // 提高绘制性能
   self.perf = {};
 
+  // Todo 依赖 plugins/presentation
+  // let height = -1;
+  // if (typeof (ResizeObserver) !== 'undefined') {
+  //   new ResizeObserver(entries => {
+  //     if (!self.text || self.text.clientHeight === 0 || height === self.text.clientHeight) {
+  //       return;
+  //     }
+  //     let h = height;
+  //     height = self.text.clientHeight;
+  //     if (h === -1) {
+  //       return;
+  //     }
+  //     if (shape.textSizeChanged !== undefined) {
+  //       shape.textSizeChanged();
+  //     }
+  //   }).observe(self.text);
+  // }
+
   /**
    * 是否包含在文本区域内.
    * 判断时，需要去除padding：
@@ -371,6 +389,7 @@ const drawer = (shape, div, x = 0, y = 0) => {
     }
     const w = self.parent.offsetWidth + 2 * shape.borderWidth + 1;// + shape.getPadLeft() + shape.getPadRight();
     shape.width = shape.minWidth ? Math.max(shape.minWidth, w) : w;
+    shape.autoHeight && (shape.height = self.text.offsetHeight + 2 * shape.borderWidth + 1);
     return shape.width;
   };
 

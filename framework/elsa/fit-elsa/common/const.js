@@ -83,10 +83,10 @@ export const PARENT_DOCK_MODE = {
  * 辉子
  */
 export const DIRECTION = {
-  W: {cursor: 'ew-resize', key: 'W', color: 'whitesmoke', ax: 'x', vector: -1, value: 'W'},
-  N: {cursor: 'ns-resize', key: 'N', color: 'whitesmoke', ax: 'y', vector: -1, value: 'N'},
-  E: {cursor: 'ew-resize', key: 'E', color: 'whitesmoke', ax: 'x', vector: 1, value: 'E'},
-  S: {cursor: 'ns-resize', key: 'S', color: 'whitesmoke', ax: 'y', vector: 1, value: 'S'},
+  W: {cursor: 'ew-resize', key: 'W', color: 'whitesmoke', ax: 'x', vector: -1, value: 'W', opposite: 'E'},
+  N: {cursor: 'ns-resize', key: 'N', color: 'whitesmoke', ax: 'y', vector: -1, value: 'N', opposite: 'S'},
+  E: {cursor: 'ew-resize', key: 'E', color: 'whitesmoke', ax: 'x', vector: 1, value: 'E', opposite: 'W'},
+  S: {cursor: 'ns-resize', key: 'S', color: 'whitesmoke', ax: 'y', vector: 1, value: 'S', opposite: 'N'},
   NE: {cursor: 'nesw-resize', key: 'NE', color: 'whitesmoke'},
   SW: {cursor: 'nesw-resize', key: 'SW', color: 'whitesmoke'},
   SE: {cursor: 'nwse-resize', key: 'SE', color: 'whitesmoke'},
