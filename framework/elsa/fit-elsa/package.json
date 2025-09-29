@@ -29,6 +29,7 @@
     "testEnvironment": "jsdom"
   },
   "dependencies": {
+    "@antv/g2": "^5.4.1",
     "@dagrejs/dagre": "^1.1.4",
     "i18next": "^21.6.0"
   },
