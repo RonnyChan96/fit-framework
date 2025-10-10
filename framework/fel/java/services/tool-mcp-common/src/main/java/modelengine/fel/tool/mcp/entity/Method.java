@@ -9,6 +9,7 @@ package modelengine.fel.tool.mcp.entity;
 /**
  * Represents different methods used in MCP, which are essential for communication and interaction.
  *
+ * @author 季聿阶
  * @since 2025-05-23
  */
 public enum Method {
@@ -40,7 +41,13 @@ public enum Method {
     /**
      * Represents the notification method indicating a change in the list of tools.
      */
-    NOTIFICATION_TOOLS_CHANGED("notifications/tools/list_changed");
+    NOTIFICATION_TOOLS_CHANGED("notifications/tools/list_changed"),
+
+    /**
+     * Represents the method to set logging level.
+     * TODO The naming need to be standardized as snake_case.
+     */
+    LOGGING_SET_LEVEL("logging/setLevel");
 
     private final String code;
 

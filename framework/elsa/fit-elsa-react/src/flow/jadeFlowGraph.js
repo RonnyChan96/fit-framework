@@ -59,6 +59,12 @@ import {intelligentFormNodeState} from '@/components/intelligentForm/intelligent
 import {intelligentFormComponent} from '@/components/intelligentForm/intelligentFormComponent.jsx';
 import {parallelNodeState} from '@/components/parallelNode/parallelNodeState.jsx';
 import {parallelComponent} from '@/components/parallelNode/parallelComponent.jsx';
+import {textConcatenateNodeState} from "@/components/textConcatenationNode/textConcatenateNodeState.jsx";
+import {textConcatenateNodeComponent} from "@/components/textConcatenationNode/textConcatenateNodeComponent.jsx";
+import {variableUpdateNodeState} from '@/components/variableUpdate/variableUpdateNodeState.jsx';
+import {variableUpdateComponent} from '@/components/variableUpdate/variableUpdateComponent.jsx';
+import {replyNodeState} from '@/components/replyNode/replyNodeState.jsx';
+import {replyNodeComponent} from '@/components/replyNode/replyNodeComponent.jsx';
 
 /**
  * jadeFlow的专用画布.
@@ -165,6 +171,12 @@ export const jadeFlowGraph = (div, title) => {
     self.registerPlugin('intelligentFormComponent', intelligentFormComponent);
     self.registerPlugin('parallelNodeState', parallelNodeState);
     self.registerPlugin('parallelComponent', parallelComponent);
+    self.registerPlugin('textConcatenateNodeState', textConcatenateNodeState);
+    self.registerPlugin('textConcatenateNodeComponent', textConcatenateNodeComponent);
+    self.registerPlugin('variableUpdateNodeState', variableUpdateNodeState);
+    self.registerPlugin('variableUpdateComponent', variableUpdateComponent);
+    self.registerPlugin('replyNodeState', replyNodeState);
+    self.registerPlugin('replyNodeComponent', replyNodeComponent);
     return initialize.apply(self);
   };
 

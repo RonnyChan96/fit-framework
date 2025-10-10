@@ -11,6 +11,7 @@ import {Button} from 'antd';
 import {CodeDrawer} from '@/components/common/code/CodeDrawer.jsx';
 import 'antd/dist/antd.css';
 import {createGraphOperator} from '@/data/GraphOperator.js';
+import {v4 as uuidv4} from 'uuid';
 
 function App({i18n}) {
   const [open, setOpen] = useState(false);
@@ -53,6 +54,11 @@ function App({i18n}) {
       },
     });
     configs.push({
+      node: 'replyNodeState', urls: {
+        testCodeUrl: '',
+      },
+    });
+    configs.push({
       node: 'evaluationAlgorithmsNodeState', urls: {
         evaluationAlgorithmsUrl: '',
       },
@@ -67,6 +73,9 @@ function App({i18n}) {
       urls: {
         llmModelEndpoint: '',
       },
+    });
+    configs.push({
+      node: 'textConcatenateNodeState'
     });
 
     JadeFlow.edit({
@@ -115,6 +124,42 @@ function App({i18n}) {
             checked: true,
           },
         ]);
+      });
+      agent.onAddInputParam(({ onAdd, existParam }) => {
+        const mockParam = {
+          id: 'input_' + uuidv4(),
+          name: 'userAge',
+          type: 'Boolean',
+          value: '',
+          displayName: 'test',
+          isRequired: true,
+          isVisible: true,
+          disableModifiable: false,
+          appearance: {},
+        };
+
+        // 直接调用回调，模拟弹窗“确认”后的行为
+        onAdd(mockParam);
+        console.log(existParam);
+      });
+
+      agent.onEditInputParam(({id,  onEdit, selectedParam }) => {
+        const mockParam = {
+          id: id,
+          name: 'userAge',
+          type: 'String',
+          value: '',
+          displayName: 'test',
+          isRequired: true,
+          isVisible: true,
+          disableModifiable: false,
+          appearance: {},
+        };
+
+        // 直接调用回调，模拟弹窗“确认”后的行为
+        onEdit(mockParam);
+
+        console.log(selectedParam);
       });
       agent.listen('GENERATE_AI_PROMPT', (event) => {
         event.applyPrompt('123');
@@ -241,6 +286,8 @@ function App({i18n}) {
         <Button onClick={() => window.agent.createNodeByPosition('textExtractionNodeState', {x:100, y:100}, {uniqueName : ''})}>创建文本提取节点</Button>
         <Button onClick={() => window.agent.createNodeByPosition('queryOptimizationNodeState', {x:100, y:100}, {uniqueName : ''})}>创建问题优化节点</Button>
         <Button onClick={() => window.agent.createNodeByPosition('codeNodeState', {x:100, y:100}, {uniqueName : ''})}>创建code节点</Button>
+        <Button onClick={() => window.agent.createNodeByPosition('textConcatenateNodeState', {x:100, y:100}, {uniqueName : ''})}>创建文本拼接节点</Button>
+        <Button onClick={() => window.agent.createNodeByPosition('replyNodeState', {x:100, y:100}, {uniqueName : ''})}>创建直接回复节点</Button>
         <Button onClick={() => {
           const nodeTypes = ['endNodeEnd',
             'retrievalNodeState',
