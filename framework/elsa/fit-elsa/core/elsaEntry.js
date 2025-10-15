@@ -7,6 +7,7 @@
 import {EVENT_TYPE} from "../common/const.js";
 import {uuid} from "../common/util.js";
 import {reGenerateId} from "../common/elsaEntryUtil.js";
+import {docGraph} from "../plugins/document-new/docGraph.js";
 import {defaultGraph} from "./defaultGraph.js";
 import {elsatoimage} from "../common/elsa2image.js";
 import {defaultRepository} from "../repository/defaultRepository.js";
@@ -378,6 +379,7 @@ const ELSA = (() => {
     const self = {};
     const graphTypes = {};
     graphTypes.graph = (div, title) => defaultGraph(div, title);
+    graphTypes.docGraph = docGraph;
     let repo = defaultRepository();
     let emptyGraph = async (graphType, div, session) => {
       let graphTypeVal = graphType;

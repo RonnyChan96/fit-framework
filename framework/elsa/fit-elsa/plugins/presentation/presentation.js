@@ -511,8 +511,6 @@ let presentationPage = (div, graph, name, id) => {
 
     if (self.mode === PAGE_MODE.CONFIGURATION) {
       self.fillScreen();
-      // todo@zhangyue presentation在编辑时，需要缩放一点，使其不充满整个画布.暂时规避，后续需要和辉哥讨论(和activePage一起).
-      // todo@zhangyue zoom的数据需要计算.
       self.zoom(-0.02);
       return;
     }

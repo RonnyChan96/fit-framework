@@ -173,7 +173,6 @@ const presentationFrame = (id, x, y, width, height, parent) => {
   let invalidateAlone = self.invalidateAlone;
   self.invalidateAlone = () => {
     mediate();
-    // @maliya 编辑态模式下无需显示评论框，避免因评论框图形导致 图形之间切换图层顺序 发生混乱
     (self.page.mode !== PAGE_MODE.CONFIGURATION) && managePageComment();
     self.ifMaskItems = self.page.mode !== PAGE_MODE.CONFIGURATION
     if (self.page.isTemplate) {
