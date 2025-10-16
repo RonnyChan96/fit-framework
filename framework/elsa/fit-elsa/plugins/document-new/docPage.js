@@ -13,7 +13,6 @@ import {enhanceFocused} from "./enhancer/focusedEnhancer.js";
 import {enhanceDrawer} from "./enhancer/drawerEnhancer.js";
 import {SHAPE_IN_DOCUMENT_MODE} from "./common/const.js";
 import {enhanceKeyAction} from "./enhancer/keyActionEnhancer.js";
-import {deleteCommand} from "../../core/commands.js";
 
 const DEFAULT_HEIGHT = 1200;
 
@@ -29,6 +28,33 @@ export const docPage = (div, graph, name, id) => {
   self.mouseWheelAble = true;
 
   self.interactDrawer = docInteractDrawer(graph, self, div);
+
+  /**
+   * 重写shapeManager中方法.
+   *
+   * @override
+   */
+  const createShapeManager = self.createShapeManager;
+  self.createShapeManager = () => {
+    const sm = createShapeManager(this);
+
+    /**
+     * 普通 {@link #shape} 只能放于 {@link #docSection} 之上.
+     *
+     * @override
+     */
+    const moveBottom = sm.moveBottom;
+    sm.moveBottom = (shape) => {
+      if (shape.isTypeof("docSection")) {
+        moveBottom.apply(self, [[shape]]);
+      } else {
+        const index = self.sm.shapes.findLastIndex(s => s.isTypeof("docSection"));
+        self.sm.moveShapeTo(shape, index + Z_INDEX_OFFSET);
+      }
+    };
+
+    return sm;
+  }
 
   /**
    * {@link #docPage} 初始化时，需要创建 {@link #docFrame}.
@@ -139,32 +165,14 @@ export const docPage = (div, graph, name, id) => {
   };
 
   /**
-   * 普通 {@link #shape} 只能放于 {@link #docSection} 之上.
-   *
-   * @override
-   */
-  const moveIndexBottom = self.moveIndexBottom;
-  self.moveIndexBottom = (shape) => {
-    if (shape.isTypeof("docSection")) {
-      moveIndexBottom.apply(self, [shape]);
-    } else {
-      const index = self.sm.shapes.findLastIndex(s => s.isTypeof("docSection"));
-      self.moveIndexBefore(shape, index + Z_INDEX_OFFSET + 1);
-    }
-  };
-
-  /**
    * 普通 {@link #shape} 对象不能放于 {@link #docSection} 之前.
-   *
-   * @override
    */
-  const moveIndexBefore = self.moveIndexBefore;
   self.moveIndexBefore = (shape, index) => {
     if (shape.isTypeof("docSection")) {
-      moveIndexBefore.apply(self, [shape, index]);
+      self.sm.moveShapeTo(shape, index);
     } else {
       const lastDocSectionIndex = self.sm.shapes.findLastIndex(s => s.isTypeof("docSection"));
-      (lastDocSectionIndex + Z_INDEX_OFFSET) < index && moveIndexBefore.apply(self, [shape, index]);
+      (lastDocSectionIndex + Z_INDEX_OFFSET) < index && self.sm.moveShapeTo(shape, index);
     }
   };
 

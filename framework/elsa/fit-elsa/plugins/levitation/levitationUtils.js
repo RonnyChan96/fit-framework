@@ -18,7 +18,7 @@ export const LevitationUtils = {
     if (!shape || shape.name === 'imageTool' || shape.name === 'toolItem') {
       return;
     }
-    const data = shape.page.shapes.filter(s => s.name === 'tool' || s.name === 'toolItems');
+    const data = shape.page.sm.shapes.filter(s => s.name === 'tool' || s.name === 'toolItems');
     data.forEach(s => s.remove());
   }
 };

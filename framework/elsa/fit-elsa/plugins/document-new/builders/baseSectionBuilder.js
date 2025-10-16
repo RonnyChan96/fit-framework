@@ -39,17 +39,17 @@ export const baseSectionBuilder = () => {
   self.createSection = (topSection, x, y, id = undefined, parent) => {
     const page = topSection.page;
     const shape = page.createNew("docSection", x, y, id, null, parent);
-    const index = page.shapes.indexOf(shape) - 1;
+    const index = page.sm.shapes.indexOf(shape) - 1;
     let targetIndex = index;
     try {
-      while (!page.shapes[targetIndex].isTypeof("docSection")) {
+      while (!page.sm.shapes[targetIndex].isTypeof("docSection")) {
         targetIndex--;
       }
     } catch (e) {
       console.log(e);
     }
     if (targetIndex !== index) {
-      page.moveIndexAfter(shape, targetIndex + Z_INDEX_OFFSET);
+      page.sm.moveShapeTo(shape, targetIndex + Z_INDEX_OFFSET + 1);
     }
     return shape;
   }

@@ -87,7 +87,7 @@ const createToolContainer = (shape, menuScripts) => {
   const image = createToolImage(self);
   self.name = "tool";
   self.click = () => {
-    self.page.shapes.filter(s => s.name === 'toolItems').forEach(s => s.remove());
+    self.page.sm.shapes.filter(s => s.name === 'toolItems').forEach(s => s.remove());
     image.src = ENV_CONFIG.levitationActive;
     createToolItemContainer(self, shape, menuScripts).invalidate();
   }
@@ -176,7 +176,7 @@ const createToolItem = (toolItemContainer, parent, menuScript) => {
    */
   item.click = (x, y) => {
     menuScript.clickAction(parent, x, y);
-    parent.page.shapes.filter(s => s.name === 'toolItems').forEach(s => s.remove());
+    parent.page.sm.shapes.filter(s => s.name === 'toolItems').forEach(s => s.remove());
     parent.isFocused = true;
   }
 

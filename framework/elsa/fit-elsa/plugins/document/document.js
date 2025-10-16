@@ -429,7 +429,7 @@ let docSection = (id, x, y, width, height, parent) => {
     self.endEdit();
     let body = self.page.createNew("docBody", 0, 0);
     body.container = self.container;
-    self.page.moveIndexAfter(body, self.getIndex());
+    self.page.sm.moveShapeTo(body, self.getIndex() + 1);
     self.getDocument().invalidate();
     body.beginEdit();
     return true;

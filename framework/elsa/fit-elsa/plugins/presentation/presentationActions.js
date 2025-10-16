@@ -235,7 +235,7 @@ presentationActions.methods.code = (s, thread, pageId) => {
     return presentationActions.currentPage.createNew(type, x, y);
   };
   //公布查询shape方法
-  let getShape = id => page.shapes.find(s => s.id === id);
+  let getShape = id => page.sm.getShapeById(id);
   /**
    * 闪烁，标准为visible，可以用户自定义
    */

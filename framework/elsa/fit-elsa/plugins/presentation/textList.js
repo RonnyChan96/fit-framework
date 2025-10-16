@@ -445,7 +445,7 @@ let frameLine = (id, x, y, width, height, parent) => {
       //self.invalidate();
       let line = self.getContainer().addLine(texts[1]);
       //if(line.text === "") line.text = " ";
-      self.page.moveIndexAfter(line, self.getIndex());
+      self.page.sm.moveShapeTo(line, self.getIndex() + 1);
       self.getContainer().invalidate();
       line.beginEdit();
       //if(line.text.trim()==="")setCursorPosition(0);

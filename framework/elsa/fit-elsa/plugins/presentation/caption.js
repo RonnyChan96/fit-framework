@@ -91,7 +91,7 @@ let caption = (id, x, y, width, height, parent) => {
     if (self.agendaIndex === -1) {
       return;
     }//完全自由文本
-    let agenda = self.page.shapes.find(s => s.isType('agenda'));
+    let agenda = self.page.sm.findShapeBy(s => s.isType('agenda'));
     if (agenda !== undefined) {
       self.text = self.getAgendaDisplay();
       if (!agenda.isNewAgenda) {

@@ -161,7 +161,7 @@ const presentationFrame = (id, x, y, width, height, parent) => {
     if (self.container !== self.page.id) {
       return;
     }
-    let pc = self.page.shapes.find(s => s.id === "pageComment");
+    let pc = self.page.sm.shapes.find(s => s.id === "pageComment");
     if (!pc) {
       pc = self.page.ignoreReact(() => pageComment(self));
     }

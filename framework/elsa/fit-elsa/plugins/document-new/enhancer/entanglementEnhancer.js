@@ -163,7 +163,7 @@ export const enhanceEntanglement = (shape, docSection) => {
       return;
     }
     const externalId = shape.insertEntanglementShape();
-    shape.page.moveIndexBottom(shape);
+    shape.page.sm.moveBottom(shape);
     layoutCommand(shape.page, [{shape, externalId, mode: SHAPE_IN_DOCUMENT_MODE.EMBED}]).execute(shape.page);
   };
 

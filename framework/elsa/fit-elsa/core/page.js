@@ -85,7 +85,12 @@ const page = (div, graph, name, id, iDrawer = interactDrawer, pDrawer = pageDraw
    */
   (id === undefined) && (self.id = `elsa-page:${graph.uuid()}`);
   self.uuid = graph.uuid();
-  self.sm = shapeManager(self);
+
+  self.createShapeManager = () => {
+    return shapeManager(this);
+  }
+
+  self.sm = self.createShapeManager();
 
   // shape在改page中显示为其他shape方式
   self.shapesAs = {};

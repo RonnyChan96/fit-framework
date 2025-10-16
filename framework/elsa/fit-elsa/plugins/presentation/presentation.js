@@ -716,12 +716,11 @@ let presentationPage = (div, graph, name, id) => {
    * @param shape 图形对象.
    * @param index 数组下标.
    */
-  const moveIndexBefore = self.moveIndexBefore;
   self.moveIndexBefore = (shape, index) => {
     if (index <= self.getMinIndex() - 1) {
       return;
     }
-    moveIndexBefore.apply(self, [shape, index]);
+    self.sm.moveShapeTo(shape, index);
   }
 
   /**
