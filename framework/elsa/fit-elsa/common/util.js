@@ -36,39 +36,39 @@ export const getRotatedCoordinate = (x, y, cx, cy, degree) => {
 };
 
 export const convertPositionWithParents = (parent, x, y) => {
-    let parents = [];
-    let rotateDegree = 0;
+  let parents = [];
+  let rotateDegree = 0;
   let parentVal = parent;
   while (parentVal !== parentVal.page) {
     rotateDegree += parentVal.rotateDegree;
     parents.push(parentVal);
     parentVal = parentVal.getContainer();
-    }
-    if (rotateDegree === 0) {
-        return {x, y};
-    }
+  }
+  if (rotateDegree === 0) {
+    return {x, y};
+  }
 
-    let convertPositionWithParent = (parents, x, y) => {
-      let xVal = x;
-      let yVal = y;
-        if (parents.length === 0) {
-          return {x: xVal, y: yVal};
-        }
-        let parent = parents[parents.length - 1];
-        if (parent.scaleX !== undefined) {
-            xVal = parent.x + ((xVal - parent.x) / parent.scaleX);
-        }
-        if (parent.scaleY !== undefined) {
-            yVal = parent.y + ((yVal - parent.y) / parent.scaleY);
-        }
-        let degree = parent.rotateDegree * Math.PI / 180;
-        let cx = parent.x + parent.width / 2;
-        let cy = parent.y + parent.height / 2;
-      let p = getRotatedCoordinate(xVal, yVal, cx, cy, -degree);
-        parents.pop();
-        return convertPositionWithParent(parents, p.x, p.y);
-    };
-    return convertPositionWithParent(parents, x, y);
+  let convertPositionWithParent = (parents, x, y) => {
+    let xVal = x;
+    let yVal = y;
+    if (parents.length === 0) {
+      return {x: xVal, y: yVal};
+    }
+    let parent = parents[parents.length - 1];
+    if (parent.scaleX !== undefined) {
+      xVal = parent.x + ((xVal - parent.x) / parent.scaleX);
+    }
+    if (parent.scaleY !== undefined) {
+      yVal = parent.y + ((yVal - parent.y) / parent.scaleY);
+    }
+    let degree = parent.rotateDegree * Math.PI / 180;
+    let cx = parent.x + parent.width / 2;
+    let cy = parent.y + parent.height / 2;
+    let p = getRotatedCoordinate(xVal, yVal, cx, cy, -degree);
+    parents.pop();
+    return convertPositionWithParent(parents, p.x, p.y);
+  };
+  return convertPositionWithParent(parents, x, y);
 };
 
 export const getInteractRect = (rect1, rect2) => {

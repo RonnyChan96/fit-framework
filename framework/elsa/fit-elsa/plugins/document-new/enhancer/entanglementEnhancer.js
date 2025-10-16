@@ -244,6 +244,10 @@ export const enhanceEntanglement = (shape, docSection) => {
 
       setTimeout(() => {
         const element = document.querySelector(`#${referId}`);
+        if (!element) {
+          return;
+        }
+
         const resizeObserver = new ResizeObserver(entries => {
           for (let entry of entries) {
             shape.width = entry.contentRect.width;
@@ -251,6 +255,7 @@ export const enhanceEntanglement = (shape, docSection) => {
           }
         });
         resizeObserver.observe(element);
+
       })
     });
   }

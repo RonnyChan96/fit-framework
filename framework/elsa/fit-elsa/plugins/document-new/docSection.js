@@ -254,7 +254,7 @@ export const docSection = (id, x, y, width, height, parent, drawer = docDrawer) 
    * @return {*} shapes列表.
    */
   self.getDescendants = () => {
-    return self.page.shapes.filter(s => self !== s && self.isMyBlood(s));
+    return self.page.sm.getShapes(s => self !== s && self.isMyBlood(s));
   };
 
   /**
@@ -428,7 +428,7 @@ export const docSection = (id, x, y, width, height, parent, drawer = docDrawer) 
       return;
     }
     const isEmbed = (s) => s.mode && s.mode === SHAPE_IN_DOCUMENT_MODE.EMBED;
-    const embedShapeMap = new Map(self.page.shapes.filter(s => isEmbed(s)).map(s => [s.id, s]));
+    const embedShapeMap = new Map(self.page.sm.getShapes(s => isEmbed(s)).map(s => [s.id, s]));
     data.shapes.forEach(s => {
       const shape = embedShapeMap.get(s.shapeId);
       if (shape) {
@@ -507,7 +507,7 @@ export const docSection = (id, x, y, width, height, parent, drawer = docDrawer) 
    * @return {*} 处于悬浮状态的图形集合.
    */
   self.getSuspensionShapes = () => {
-    return self.page.shapes.filter(s => s.mode && s.mode === SHAPE_IN_DOCUMENT_MODE.SUSPENSION);
+    return self.page.sm.getShapes(s => s.mode && s.mode === SHAPE_IN_DOCUMENT_MODE.SUSPENSION);
   };
 
   /* ---------------------------- 文档变化相关操作 ---------------------------- */
